@@ -1,0 +1,4 @@
+SetEnv HTTP_SECRET "vtfc6bx2080VzfBVIwxRTGgeFsJWizNztgwo1sU5G25SaS6DNo4D8TqKhRPL"
+RewriteEngine On
+RewriteCond %{HTTP:Authorization} ^(.+)$
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

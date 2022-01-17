@@ -475,3 +475,6 @@ composer.lock
 
 ##### CodeLite files
 *.phprj
+
+#### Local files
+api/localcdn/*

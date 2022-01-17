@@ -1,6 +1,8 @@
 {
     "require": {
-        "psr/log": "^3.0"
+        "psr/log": "^3.0",
+        "firebase/php-jwt": "^5.5",
+        "paragonie/sodium_compat": "^1.17"
     },
 	"autoload": {
         "psr-4": {
