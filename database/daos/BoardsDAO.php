@@ -22,11 +22,10 @@ class BoardsDAO {
     }
 
     /**
-     * Funkcja pobierająca tablicę o danym identyfikatorze
-     * @param int $boardId Identyfikator tablicy
-     * @return array Tablica z informacjami o danej tablicy
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
-     * @throws Exceptions\BoardNotFoundException Ten wyjątek jest rzucany, jeżeli tablica o podanym identyfikatorze nie została znaleziona
+     * @param int $boardId
+     * @return array
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getBoard(int $boardId): array
     {
@@ -37,11 +36,11 @@ class BoardsDAO {
     }
 
     /**
-     * Funkcja pobierająca odpowiedni łańcuch z tablicy o danym identyfikatorze
-     * @param int $board_id Identyfikator tablicy
-     * @param int $chain_pos Pozycja łańcucha
-     * @return int Identyfikator łańcucha
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @param int $board_id
+     * @param int $chain_pos
+     * @return int
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getChain(int $board_id, int $chain_pos): int
     {
@@ -59,7 +58,8 @@ class BoardsDAO {
     /**
      * @param int $board_id
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getAllChains(int $board_id): array
     {
@@ -73,7 +73,8 @@ class BoardsDAO {
     /**
      * @param int $chain_id
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getAllNotes(int $chain_id): array
     {
@@ -88,7 +89,8 @@ class BoardsDAO {
      * @param string $name
      * @param int $groupId
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addBoard(string $name, int $groupId): int
     {
@@ -100,7 +102,8 @@ class BoardsDAO {
     /**
      * @param int $chain_id
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getHighestNotePlacement(int $chain_id): int
     {
@@ -122,7 +125,8 @@ class BoardsDAO {
      * @param mixed $content
      * @param int $placement
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addNote(int $chain_id, string $type, string $message, mixed $content, int $placement): int
     {
@@ -139,7 +143,8 @@ class BoardsDAO {
     /**
      * @param int $board_id
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getHighestChainPlacement(int $board_id): int
     {
@@ -158,7 +163,8 @@ class BoardsDAO {
      * @param int $board_id
      * @param int $placement
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addChain(int $board_id, int $placement): int
     {
@@ -170,7 +176,8 @@ class BoardsDAO {
     /**
      * @param int $id
      * @param array $data
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function updateNote(int $id, array $data): void
     {
@@ -180,7 +187,8 @@ class BoardsDAO {
     /**
      * @param int $id
      * @param array $data
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function updateBoard(int $id, array $data): void
     {
@@ -190,7 +198,8 @@ class BoardsDAO {
     /**
      * @param int $id
      * @return bool
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function checkIfBoardExists(int $id): bool
     {
@@ -200,7 +209,8 @@ class BoardsDAO {
     /**
      * @param int $id
      * @return bool
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function checkIfNoteExists(int $id): bool
     {
@@ -209,7 +219,8 @@ class BoardsDAO {
 
     /**
      * @param int $board_id
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function deleteBoard(int $board_id): void
     {
@@ -218,7 +229,8 @@ class BoardsDAO {
 
     /**
      * @param int $chain_id
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function deleteChain(int $chain_id): void
     {
@@ -227,7 +239,8 @@ class BoardsDAO {
 
     /**
      * @param int $note_id
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function deleteNote(int $note_id): void
     {
@@ -237,7 +250,8 @@ class BoardsDAO {
     /**
      * @param $note_id
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getChainIdByNoteId($note_id): int
     {
@@ -250,7 +264,8 @@ class BoardsDAO {
     /**
      * @param $chain_id
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function notesAmountInChain($chain_id): int
     {

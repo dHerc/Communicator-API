@@ -2,12 +2,10 @@
 
 namespace Communicator\Controller;
 
-use Communicator\Database\DAOs\BoardsDAO as DAO;
 use Communicator\Database\DAOs\UsersDAO;
 use Communicator\Database\DatabaseAccess as DB;
 use Communicator\Model\Groups\Group;
 use Communicator\Model\Groups\GroupUser;
-use Communicator\Model\Users\User;
 use Communicator\Exceptions\Database\BadQueryException;
 use Communicator\Exceptions\Database\NoConnectionException;
 use Communicator\Exceptions\Users\UserNotFoundException;
@@ -61,7 +59,7 @@ class GroupController
     }
 
     /**
-     * Funckja zwracająca wszystkie grupy użytkownika o danym identyfikatorze
+     * Funkcja zwracająca wszystkie grupy użytkownika o danym identyfikatorze
      * @param int $userId Identyfikator użytkownika
      * @return array Tablica grup danego użytkownika
      * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne

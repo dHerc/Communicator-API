@@ -22,8 +22,13 @@ class DatabaseAccess
 	{
 		$connection = $this->connect();
         $query = "SELECT * FROM $table";
-        $query.= $this->addConditions($conditions);
-        $query_result = $connection->query($query);
+        $bindings = [];
+        $bindingsTypes = "";
+        $query.= $this->addConditions($conditions, $bindings, $bindingsTypes);
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        $statement->execute();
+        $query_result = $statement->get_result();
         if(!$query_result)
             throw new Exceptions\BadQueryException($query, $connection->error);
         return $query_result->fetch_assoc();
@@ -41,8 +46,13 @@ class DatabaseAccess
 	{
 		$connection = $this->connect();
         $query = "SELECT * FROM $table";
-        $query.= $this->addConditions($conditions);
-        $query_result = $connection->query($query);
+        $bindings = [];
+        $bindingsTypes = "";
+        $query.= $this->addConditions($conditions, $bindings, $bindingsTypes);
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        $statement->execute();
+        $query_result = $statement->get_result();
         if(!$query_result)
             throw new Exceptions\BadQueryException($query, $connection->error);
         $result = array();
@@ -65,6 +75,8 @@ class DatabaseAccess
 	{
 		$connection = $this->connect();
         $query = "INSERT INTO $table";
+        $bindings = [];
+        $bindingsTypes = "";
         if(!empty($data))
         {
             $fields = "";
@@ -72,11 +84,15 @@ class DatabaseAccess
             foreach($data as $field => $value)
             {
                 $fields.= "`$field`,";
-                $values.= "'$value',";
+                $values.= "?,";
+                $bindings[] = $value;
+                $bindingsTypes .= gettype($value)[0];
             }
             $query.= " (".substr($fields,0,-1).") VALUES (".substr($values,0,-1).")";
         }
-        if(!$connection->query($query))
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        if(!$statement->execute())
             throw new Exceptions\BadQueryException($query, $connection->error);
         $id = $connection->insert_id;
 		return $id;
@@ -95,13 +111,19 @@ class DatabaseAccess
 		$connection = $this->connect();
         $query = "UPDATE $table SET";
         $sets = "";
+        $bindings = [];
+        $bindingsTypes = "";
         foreach($data as $field => $value)
         {
-            $sets.="`$field`='$value',";
+            $sets.="`$field`=?,";
+            $bindings[] = $value;
+            $bindingsTypes .= gettype($value)[0];
         }
         $query.=substr($sets,0,-1);
-        $query.= $this->addConditions($conditions);
-        if(!$connection->query($query))
+        $query.= $this->addConditions($conditions, $bindings, $bindingsTypes);
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        if(!$statement->execute())
             throw new Exceptions\BadQueryException($query, $connection->error);
 	}
 
@@ -116,8 +138,12 @@ class DatabaseAccess
 	{
 		$connection = $this->connect();
         $query = "DELETE FROM $table";
-        $query.= $this->addConditions($conditions);
-        if(!$connection->query($query))
+        $bindings = [];
+        $bindingsTypes = "";
+        $query.= $this->addConditions($conditions, $bindings, $bindingsTypes);
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        if(!$statement->execute())
             throw new Exceptions\BadQueryException($query, $connection->error);
 	}
 
@@ -133,8 +159,13 @@ class DatabaseAccess
     {
         $connection = $this->connect();
         $query = "SELECT EXISTS(SELECT * FROM $table";
-        $query.= $this->addConditions($conditions).") as result";
-        $query_result = $connection->query($query);
+        $bindings = [];
+        $bindingsTypes = "";
+        $query.= $this->addConditions($conditions, $bindings, $bindingsTypes).") as result";
+        $statement = $connection->prepare($query);
+        $statement->bind_param($bindingsTypes, ...$bindings);
+        $statement->execute();
+        $query_result = $statement->get_result();
         if(!$query_result)
             throw new Exceptions\BadQueryException($query, $connection->error);
         $result = boolval($query_result->fetch_assoc()["result"]);
@@ -167,7 +198,7 @@ class DatabaseAccess
      * @param array $conditions Tablica warunków
      * @return string Fragment zapytania zawierający warunki
      */
-	private function addConditions(array $conditions): string
+	private function addConditions(array $conditions, array & $bindings, string & $bindingsTypes): string
 	{
 		$query = "";
 		$first = true;
@@ -182,7 +213,9 @@ class DatabaseAccess
 			{
 				$query.=" AND ";
 			}
-			$query.="$field='$value'";
+			$query.="$field=?";
+            $bindings[]=$value;
+            $bindingsTypes.=gettype($value)[0];
 		}
 		return $query;
 	}

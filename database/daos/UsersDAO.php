@@ -18,7 +18,8 @@ class UsersDAO
     /**
      * @param int $groupId
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getGroupUsers(int $groupId): array
     {
@@ -33,7 +34,8 @@ class UsersDAO
     /**
      * @param int $userId
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getGroups(int $userId): array
     {
@@ -44,7 +46,8 @@ class UsersDAO
      * @param array $ids
      * @param int $user_id
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getGroupsByIds(array $ids, int $user_id): array
     {
@@ -64,7 +67,8 @@ class UsersDAO
      * @param string $name
      * @param int $userId
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addGroup(string $name, int $userId): int
     {
@@ -79,7 +83,8 @@ class UsersDAO
 
     /**
      * @param int $groupId
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function deleteGroup(int $groupId)
     {
@@ -89,7 +94,8 @@ class UsersDAO
     /**
      * @param int $groupId
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getBoards(int $groupId): array
     {
@@ -114,7 +120,8 @@ class UsersDAO
     /**
      * @param int $userId
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getUser(int $userId): array
     {
@@ -124,7 +131,8 @@ class UsersDAO
     /**
      * @param string $login
      * @return array|null
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getUserByLogin(string $login): ?array
     {
@@ -134,7 +142,8 @@ class UsersDAO
     /**
      * @param string $login
      * @return bool
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function existsUser(string $login): bool
     {
@@ -148,7 +157,8 @@ class UsersDAO
      * @param string $token
      * @param string $validTo
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addUser(string $login, string $passwordHash, string $salt, string $token, string $validTo): int
     {
@@ -165,7 +175,8 @@ class UsersDAO
      * @param string $login
      * @param string $passwordHash
      * @return array
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function checkCredentials(string $login, string $passwordHash): array
     {
@@ -180,7 +191,8 @@ class UsersDAO
      * @param int $userId
      * @param string $token
      * @param string $validTo
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function saveToken(int $userId, string $token, string $validTo)
     {
@@ -190,7 +202,8 @@ class UsersDAO
     /**
      * @param int $noteId
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getNoteBoard(int $noteId): int
     {
@@ -201,7 +214,8 @@ class UsersDAO
     /**
      * @param int $boardId
      * @return int
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getBoardGroup(int $boardId): int
     {
@@ -213,7 +227,8 @@ class UsersDAO
      * @param int $groupId
      * @param int $userId
      * @return mixed|null
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function getPermission(int $groupId, int $userId)
     {
@@ -228,7 +243,8 @@ class UsersDAO
      * @param int $groupId
      * @param int $userId
      * @param string $permission
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function addUserToGroup(int $groupId, int $userId, string $permission)
     {
@@ -239,7 +255,8 @@ class UsersDAO
      * @param int $groupId
      * @param int $userId
      * @param string $permission
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function editUserInGroup(int $groupId, int $userId, string $permission)
     {
@@ -249,7 +266,8 @@ class UsersDAO
     /**
      * @param int $groupId
      * @param int $userId
-     * @throws BadQueryException Ten wyjątek jest rzucany, jeżeli wygenerowane zapytanie nie jest poprawne
+     * @throws BadQueryException
+     * @throws \Communicator\Exceptions\Database\NoConnectionException
      */
     public function deleteUserFromGroup(int $groupId, int $userId)
     {

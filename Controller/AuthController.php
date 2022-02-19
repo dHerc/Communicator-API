@@ -9,8 +9,6 @@ use Communicator\Exceptions\Database\BadQueryException;
 use Communicator\Exceptions\Database\NoConnectionException;
 use Communicator\Exceptions\Users\UserAlreadyExistsException;
 use Communicator\Exceptions\Users\UserNotFoundException;
-use Communicator\Utils\Common;
-use Communicator\Utils\Error;
 use Communicator\Utils\Logger;
 use DateTimeImmutable;
 use Firebase\JWT\JWT;
@@ -143,7 +141,7 @@ class AuthController
         try {
             $decodedToken = JWT::decode($token, $secretKey, ['HS512']);
         }
-        catch (\Exception $e)
+        catch (\Exception)
         {
             return false;
         }
